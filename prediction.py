@@ -3,7 +3,7 @@ import numpy as np
 import librosa
 
 # load the model
-model = load_model('speech_recog_001.h5')
+model = load_model('speech_recog_003.h5')
 
 # Define class names
 class_names = [
