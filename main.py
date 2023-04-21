@@ -141,7 +141,7 @@ if option_audio == 'Speak':
             # audio_file.type
             # print(audio_bytes.type)
             with st.spinner("Predicting..."):
-                mfccs = extract_mfcc(audio_bytes)
+                mfccs = extract_mfcc(audio)
                 X = np.array(mfccs)
                 X = np.expand_dims(X, -1)
                 prediction = model.predict(X)
@@ -149,34 +149,104 @@ if option_audio == 'Speak':
                 predicted_class = class_names[class_index]
                 st.success("The predicted emotion is: {}".format(predicted_class))
 elif option_audio == 'Upload':
-    audio_file = st.file_uploader("Upload Audio in wav format", type=["wav"])
-    if audio_file is not None:
-        option = st.selectbox(
-            'What model would you like to use?',
-            ('CNN', 'LSTM'))
-        st.write('You selected:', option)
+    option_menu = st.selectbox(
+        "What is your audio format for upload", ('.wav', '.mp3', '.m4a')
+    )
+    if option_menu == '.wav':
+        audio_file = st.file_uploader("Upload Audio in wav format", type=["wav"])
+        if audio_file is not None:
+            option = st.selectbox(
+                'What model would you like to use?',
+                ('CNN', 'LSTM'))
+            st.write('You selected:', option)
 
-        if option == 'CNN':
-            model = model_cnn
-            # sample_rate = sample_rate
-            feature = get_features(audio_file)
-            scaler = StandardScaler()
-            feature = scaler.fit_transform(feature)
-            with st.spinner("Predicting..."):
-                prediction = model.predict(feature)
-                class_index = np.argmax(prediction[0])
-                predicted_class = class_names[class_index]
-                st.success("The predicted emotion is: {}".format(predicted_class))
+            if option == 'CNN':
+                model = model_cnn
+                # sample_rate = sample_rate
+                feature = get_features(audio_file)
+                scaler = StandardScaler()
+                feature = scaler.fit_transform(feature)
+                with st.spinner("Predicting..."):
+                    prediction = model.predict(feature)
+                    class_index = np.argmax(prediction[0])
+                    predicted_class = class_names[class_index]
+                    st.success("The predicted emotion is: {}".format(predicted_class))
 
-        elif option == 'LSTM':
-            model = model_lstm
-            # audio_file.type
-            print(audio_file.type)
-            with st.spinner("Predicting..."):
-                mfccs = extract_mfcc(audio_file)
-                X = np.array(mfccs)
-                X = np.expand_dims(X, -1)
-                prediction = model.predict(X)
-                class_index = np.argmax(prediction[0])
-                predicted_class = class_names[class_index]
-                st.success("The predicted emotion is: {}".format(predicted_class))
+            elif option == 'LSTM':
+                model = model_lstm
+                # audio_file.type
+                print(audio_file.type)
+                with st.spinner("Predicting..."):
+                    mfccs = extract_mfcc(audio_file)
+                    X = np.array(mfccs)
+                    X = np.expand_dims(X, -1)
+                    prediction = model.predict(X)
+                    class_index = np.argmax(prediction[0])
+                    predicted_class = class_names[class_index]
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+    elif option_menu == '.m4a':
+        audio_file = st.file_uploader("Upload Audio in m4a format", type=["m4a"])
+        if audio_file is not None:
+            audio = AudioSegment.from_file(audio_file, sample_width=2, frame_rate=16000, channels=1).export("audio.wav", format="wav")
+            option = st.selectbox(
+                'What model would you like to use?',
+                ('CNN', 'LSTM'))
+            st.write('You selected:', option)
+
+            if option == 'CNN':
+                model = model_cnn
+                # sample_rate = sample_rate
+                feature = get_features(audio)
+                scaler = StandardScaler()
+                feature = scaler.fit_transform(feature)
+                with st.spinner("Predicting..."):
+                    prediction = model.predict(feature)
+                    class_index = np.argmax(prediction[0])
+                    predicted_class = class_names[class_index]
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+
+            elif option == 'LSTM':
+                model = model_lstm
+                # audio_file.type
+                # print(audio_bytes.type)
+                with st.spinner("Predicting..."):
+                    mfccs = extract_mfcc(audio)
+                    X = np.array(mfccs)
+                    X = np.expand_dims(X, -1)
+                    prediction = model.predict(X)
+                    class_index = np.argmax(prediction[0])
+                    predicted_class = class_names[class_index]
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+    elif option_menu == '.mp3':
+        audio_file = st.file_uploader("Upload Audio in mp3 format", type=["mp3"])
+        if audio_file is not None:
+            audio = AudioSegment.from_file(audio_file, sample_width=2, frame_rate=16000, channels=1).export("audio.wav", format="wav")
+            option = st.selectbox(
+                'What model would you like to use?',
+                ('CNN', 'LSTM'))
+            st.write('You selected:', option)
+
+            if option == 'CNN':
+                model = model_cnn
+                # sample_rate = sample_rate
+                feature = get_features(audio)
+                scaler = StandardScaler()
+                feature = scaler.fit_transform(feature)
+                with st.spinner("Predicting..."):
+                    prediction = model.predict(feature)
+                    class_index = np.argmax(prediction[0])
+                    predicted_class = class_names[class_index]
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+
+            elif option == 'LSTM':
+                model = model_lstm
+                # audio_file.type
+                # print(audio_bytes.type)
+                with st.spinner("Predicting..."):
+                    mfccs = extract_mfcc(audio)
+                    X = np.array(mfccs)
+                    X = np.expand_dims(X, -1)
+                    prediction = model.predict(X)
+                    class_index = np.argmax(prediction[0])
+                    predicted_class = class_names[class_index]
+                    st.success("The predicted emotion is: {}".format(predicted_class))
