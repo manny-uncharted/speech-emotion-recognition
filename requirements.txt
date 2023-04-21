@@ -1,5 +1,10 @@
+audio-recorder-streamlit==0.0.8
+colorama==0.4.6
+ffmpeg==1.4
+ffmpeg-python==0.2.0
 librosa==0.10.0.post2
+pathlib==1.0.1
 pip-chill==1.0.3
+pydub==0.25.1
 seaborn==0.12.2
-streamlit==1.21.0
 tensorflow==2.12.0
