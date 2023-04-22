@@ -16,7 +16,7 @@ import io
 
 st.header("Speech Emotion Recognition")
 st.subheader("Upload an audio file to predict the emotion")
-st.caption("The application would infer the one label from the following list: 'ps', 'fear', 'happy', 'sad', 'angry', 'disgust', 'neutral'")
+st.caption("The application would infer the one label from the following list: 'surprise', 'fear', 'happy', 'sad', 'angry', 'disgust', 'neutral'")
 st.caption("The audio file should be in .wav format and should be of duration 3 seconds")
 
 # load the model
@@ -134,7 +134,11 @@ if option_audio == 'Speak':
                 prediction = model.predict(feature)
                 class_index = np.argmax(prediction[0])
                 predicted_class = class_names[class_index]
-                st.success("The predicted emotion is: {}".format(predicted_class))
+                if predicted_class == 'ps':
+                    predicted_class = 'surprise'
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+                else:
+                    st.success("The predicted emotion is: {}".format(predicted_class))
 
         elif option == 'LSTM':
             model = model_lstm
@@ -147,7 +151,12 @@ if option_audio == 'Speak':
                 prediction = model.predict(X)
                 class_index = np.argmax(prediction[0])
                 predicted_class = class_names[class_index]
-                st.success("The predicted emotion is: {}".format(predicted_class))
+                if predicted_class == 'ps':
+                    predicted_class = 'surprise'
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+                else:
+                    st.success("The predicted emotion is: {}".format(predicted_class))
+
 elif option_audio == 'Upload':
     option_menu = st.selectbox(
         "What is your audio format for upload", ('.wav', '.mp3', '.m4a')
@@ -170,7 +179,11 @@ elif option_audio == 'Upload':
                     prediction = model.predict(feature)
                     class_index = np.argmax(prediction[0])
                     predicted_class = class_names[class_index]
-                    st.success("The predicted emotion is: {}".format(predicted_class))
+                    if predicted_class == 'ps':
+                        predicted_class = 'surprise'
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+                    else:
+                        st.success("The predicted emotion is: {}".format(predicted_class))
 
             elif option == 'LSTM':
                 model = model_lstm
@@ -183,7 +196,12 @@ elif option_audio == 'Upload':
                     prediction = model.predict(X)
                     class_index = np.argmax(prediction[0])
                     predicted_class = class_names[class_index]
-                    st.success("The predicted emotion is: {}".format(predicted_class))
+                    if predicted_class == 'ps':
+                        predicted_class = 'surprise'
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+                    else:
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+
     elif option_menu == '.m4a':
         audio_file = st.file_uploader("Upload Audio in m4a format", type=["m4a"])
         if audio_file is not None:
@@ -203,7 +221,11 @@ elif option_audio == 'Upload':
                     prediction = model.predict(feature)
                     class_index = np.argmax(prediction[0])
                     predicted_class = class_names[class_index]
-                    st.success("The predicted emotion is: {}".format(predicted_class))
+                    if predicted_class == 'ps':
+                        predicted_class = 'surprise'
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+                    else:
+                        st.success("The predicted emotion is: {}".format(predicted_class))
 
             elif option == 'LSTM':
                 model = model_lstm
@@ -216,7 +238,12 @@ elif option_audio == 'Upload':
                     prediction = model.predict(X)
                     class_index = np.argmax(prediction[0])
                     predicted_class = class_names[class_index]
-                    st.success("The predicted emotion is: {}".format(predicted_class))
+                    if predicted_class == 'ps':
+                        predicted_class = 'surprise'
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+                    else:
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+
     elif option_menu == '.mp3':
         audio_file = st.file_uploader("Upload Audio in mp3 format", type=["mp3"])
         if audio_file is not None:
@@ -236,7 +263,11 @@ elif option_audio == 'Upload':
                     prediction = model.predict(feature)
                     class_index = np.argmax(prediction[0])
                     predicted_class = class_names[class_index]
-                    st.success("The predicted emotion is: {}".format(predicted_class))
+                    if predicted_class == 'ps':
+                        predicted_class = 'surprise'
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+                    else:
+                        st.success("The predicted emotion is: {}".format(predicted_class))
 
             elif option == 'LSTM':
                 model = model_lstm
@@ -249,4 +280,8 @@ elif option_audio == 'Upload':
                     prediction = model.predict(X)
                     class_index = np.argmax(prediction[0])
                     predicted_class = class_names[class_index]
-                    st.success("The predicted emotion is: {}".format(predicted_class))
+                    if predicted_class == 'ps':
+                        predicted_class = 'surprise'
+                        st.success("The predicted emotion is: {}".format(predicted_class))
+                    else:
+                        st.success("The predicted emotion is: {}".format(predicted_class))
